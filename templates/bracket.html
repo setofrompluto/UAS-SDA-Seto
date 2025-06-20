@@ -1,0 +1,970 @@
+<!DOCTYPE html>
+<html>
+
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Bracket</title>
+
+  <style>
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    color: #ffffff;
+    font-family: 'Segoe UI', Tahoma, 'Geneva', Verdana, sans-serif;
+}
+
+body {
+    background-color: #081724; 
+    color: #ffffff;
+}
+
+.navbar {
+    background: linear-gradient(to right, #6e0303, #0E2D50);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 75px;
+    position: sticky;
+    top: 0;
+    z-index: 999;
+    width: 100%;
+    padding: 0 40px;
+}
+
+.left h1 {
+    font-size: 30px;
+    cursor: pointer;
+}
+
+.right ul {
+    display: flex;
+    list-style: none;
+    gap: 15px;
+}
+
+.right ul li a {
+    text-decoration: none;
+}
+.right ul li a:hover {
+    color: #ff4b5c
+}
+
+#check {
+    display: none;
+}
+
+.checkBtn {
+    cursor: pointer;
+    font-size: 10px;
+    float: right;
+    color: #ed1e79;
+    line-height: 40px;
+}
+
+button {
+    position: relative;
+    padding: 1rem 3rem;
+    border: 2px solid transparent;
+    background: none;
+    color: var(--clr);
+    font-size: 1.2rem;
+    font-weight: bold;
+    cursor: pointer;
+    transition: 0.4s;
+}
+
+button:hover {
+    transform: scale(1.08);
+    background: var(--clr);
+    color: #fff;
+    border: 2px solid #ff0000;
+    box-shadow: 0 0 15px #ff0000, 0 0 30px #ff0000;
+}
+
+button::before {
+    content: "";
+    position: absolute;
+    inset: 2px;
+    background: #081724;
+}
+
+button span {
+    position: relative;
+    z-index: 1;
+}
+
+button i {
+    position: absolute;
+    inset: 0;
+    display: block;
+}
+
+button i::before,
+button i::after {
+    content: "";
+    position: absolute;
+    width: 10px;
+    height: 2px;
+    border: 2px solid var(--clr);
+    background: var(--clr);
+    transition: 0.2s;
+}
+
+button i::before {
+    left: 80%;
+    top: -2px;
+}
+
+button i::after {
+    left: 20%;
+    bottom: -2px;
+}
+
+button:hover i::before {
+    width: 15px;
+    left: 20%;
+}
+
+button:hover i::after {
+    width: 15px;
+    left: 80%;
+}
+
+.generate-form {
+    margin: 30px;
+    text-align: center;
+}
+
+.generate-form button {
+    position: relative;
+    padding: 1rem 3rem;
+    border: 2px solid transparent;
+    background: none;
+    color: var(--clr);
+    font-size: 1.2rem;
+    font-weight: bold;
+    cursor: pointer;
+    transition: 0.4s;
+}
+
+.generate-form button:hover {
+    transform: scale(1.08);
+    background: var(--clr);
+    color: #fff;
+    border: 2px solid #ff0000;
+    box-shadow: 0 0 15px #ff0000, 0 0 30px #ff0000;
+}
+
+.generate-form button::before {
+    content: "";
+    position: absolute;
+    inset: 2px;
+    background:#081724;
+}
+
+.generate-form button span {
+    position: relative;
+    z-index: 1;
+}
+
+.generate-form button i {
+    position: absolute;
+    inset: 0;
+    display: block;
+}
+
+.generate-form button i::before,
+.generate-form button i::after {
+    content: "";
+    position: absolute;
+    width: 10px;
+    height: 2px;
+    border: 2px solid var(--clr);
+    background: var(--clr);
+    transition: 0.2s;
+}
+
+.generate-form button i::before {
+    left: 80%;
+    top: -2px;
+}
+
+.generate-form button i::after {
+    left: 20%;
+    bottom: -2px;
+}
+
+.generate-form button:hover i::before {
+    width: 15px;
+    left: 20%;
+}
+
+.generate-form button:hover i::after {
+    width: 15px;
+    left: 80%;
+}
+
+.nav-controls {
+    display: flex;
+    justify-content: center;
+    gap: 12px;        
+    margin: 20px 0;
+    flex-wrap: nowrap;
+}
+
+.nav-controls form {
+    margin: 0;
+}
+
+.nav-controls button {
+    position: relative;
+    padding: 1rem 3rem;
+    border: 2px solid transparent;
+    background: none;
+    color: var(--clr);
+    font-size: 0.8rem;
+    font-weight: bold;
+    cursor: pointer;
+    transition: 0.4s;
+}
+
+.nav-controls button:hover {
+    transform: scale(1.08);
+    background: var(--clr);
+    color: #fff;
+    border: 2px solid #ff0000;
+    box-shadow: 0 0 15px #ff0000, 0 0 30px #ff0000;
+}
+
+.nav-controls button::before {
+    content: "";
+    position: absolute;
+    inset: 2px;
+    background: #081724;
+}
+
+.nav-controls button span {
+    position: relative;
+    z-index: 1;
+}
+
+.nav-controls button i {
+    position: absolute;
+    inset: 0;
+    display: block;
+}
+
+.nav-controls button i::before,
+.nav-controls button i::after {
+    content: "";
+    position: absolute;
+    width: 10px;
+    height: 2px;
+    border: 2px solid var(--clr);
+    background: var(--clr);
+    transition: 0.2s;
+}
+
+.nav-controls button i::before {
+    left: 80%;
+    top: -2px;
+}
+
+.nav-controls button i::after {
+    left: 20%;
+    bottom: -2px;
+}
+
+.nav-controls button:hover i::before {
+    width: 15px;
+    left: 20%;
+}
+
+.nav-controls button:hover i::after {
+    width: 15px;
+    left: 80%;
+}
+
+
+
+/* ================================================================= */
+
+    #container { 
+    margin-top: 10px;
+    margin-left: 35px;
+    width: 1240px; 
+    height: 400px; 
+    float: left; 
+}
+
+section { 
+    width: 200px; 
+    height: 320px; 
+    float: left;
+}
+
+section > div { 
+    width: 200px; 
+    height: 33px; 
+    border: 1px solid #000; 
+    border-radius: 30px;
+    background: #3c53ff; 
+    color: #ffffff; 
+    padding: 10px 10px 10px 20px;
+    display: flex;
+    align-items: center;
+}
+
+section > div:nth-child(2n) { 
+    margin-bottom: 20px;
+}
+
+#seeded{
+    background: linear-gradient(to right, #ec0202, #c5f600)
+}
+
+#seeded1{
+    background: linear-gradient(to right, #ec0202, #c5f600)
+}
+#seeded2 {
+    background: linear-gradient(to right, #2102ec, #c5f600)
+}
+#normal1 {
+    background:#6e0303 
+}
+#normal2 {
+    background:#15036e 
+}
+.connecter { 
+    width: 30px; 
+    height: 520px; 
+    float: left; 
+}
+
+.line { 
+    width: 30px; 
+    height: 520px; 
+    float: left; 
+}
+
+.connecter div { 
+    border: 1px solid #fefefe; 
+    border-left: none; 
+    height: 30px; 
+    width: 100%; 
+    margin: 56.3px 0 0 1px;
+}
+
+.connecter div:first-child { 
+    margin: 17px 0 0 1px; 
+}
+
+.line div { 
+    border-top: 1px solid #fefefe; 
+    margin: 85.6px 0 0 1px; 
+}
+
+.line div:first-child { 
+    margin-top: 31px; 
+}
+
+#round2 > div { 
+    margin-top: 53px; 
+}
+#round2 > div:first-child { 
+    margin-top: 15px;
+}
+
+#conn2 div { 
+    margin-top: 85px; 
+    height: 87px;
+}
+#conn2 div:first-child { 
+    margin-top: 30px; 
+}
+
+#line2 div { 
+    margin-top: 172px;
+}
+#line2 div:first-child { 
+    margin-top: 73px; 
+}
+
+#round3 > div { 
+    margin-top: 140px; 
+}
+#round3 > div:first-child { 
+    margin-top: 56px; 
+}
+
+#conn3 div { 
+    margin-top: 172px; 
+    height: 174px;
+}
+#conn3 div:first-child { 
+    margin-top: 72px; 
+}
+
+#line3 div { 
+    margin-top: 346px; 
+}
+#line3 div:first-child { 
+    margin-top: 160px; 
+}
+
+#round4 > div { 
+    margin-top: 315px; 
+}
+#round4 > div:first-child { 
+    margin-top: 143px; 
+}
+
+#conn4 div { 
+    margin-top: 158px; 
+    height: 350px;
+}
+
+#line4 div { 
+    margin-top: 335px; 
+}
+
+#round5 > div { 
+    margin-top: 318px; 
+}
+
+.score {
+    background-color: #000;
+    width: 30px;
+    border: 2px solid #840000;
+    border-radius: 5px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.player {
+  display: flex;
+  align-items: center;
+}
+
+.score {
+  margin-left: auto;
+  background-color: #000;
+  width: 30px;
+  border: 2px solid #840000;
+  border-radius: 5px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#r5 {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: linear-gradient(to right, #FFD700, #FFA500);
+    border: 2px solid #c89b00;
+    border-radius: 12px;
+    padding: 15px 25px;
+    font-size: 18px;
+    font-weight: bold;
+    color: #800000;
+    box-shadow: 0 0 8px rgba(255, 215, 0, 0.6);
+    min-width: 200px;
+    margin: 15px auto;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.winner-box {
+    display: flex;
+    justify-content: space-between; 
+    align-items: center;            
+    background: linear-gradient(to right, #FFD700, #FFA500);
+    border: 3px solid #c89b00;
+    border-radius: 12px;
+    padding: 12px 20px;
+    color: #000;
+    font-weight: bold;
+    box-shadow: 0 0 10px rgba(255, 215, 0, 0.8);
+    margin: 10px auto;
+    width: fit-content;
+    min-width: 250px;
+}
+
+.winner-box .nama {
+    font-size: 16px;
+}
+
+.winner-box .winner {
+    font-size: 16px;
+    color: #800000;
+    font-weight: 900;
+}
+
+.glow-text {
+    background: linear-gradient(270deg, 
+     #ff0000, #ff3366, #ff6699, #ffb3c6, #ffe5ec, #ffb3c6, #ff6699, #ff3366, #ff0000, #990000);
+    background-size: 1000% 1000%;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    animation: glowing 15s ease infinite;
+    font-weight: bold;
+}
+
+@keyframes glowing {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
+#bye {
+    visibility: hidden;
+}
+
+.bye {
+    visibility: hidden;
+}
+
+  </style>
+
+</head>
+<body>
+
+    <nav class="navbar">
+        <div class="left">
+            <h1 class="glow-text">Karate ChampionShip</h1>
+        </div>
+        <div class="right">
+            <input type="checkbox" id="check">
+            <label for="check" class="checkBtn">
+                <i class="fa fa-bars"></i>
+            </label>
+            <ul class="list">
+                <li>
+                    <a href="/"><button style="--clr:#ff0000;">
+                        <span>Home</span>
+                        <i></i>
+                    </button></a>
+                </li>
+        </div>
+
+       <div class="nav-controls">
+    {% if ronde_saat_ini == 2 %}
+        <form method="post" action="/ronde2">
+                <button type="submit" style="--clr:#ff0000;">
+                    <span>Acak Skor<br>Lanjut Ronde 2</span>
+                    <i></i>
+                </button>
+            </form>
+    {% elif ronde_saat_ini == 3 %}
+        {% if bracket_ukuran == 2 %}
+            <p style="color: yellow; font-weight: bold;">Pertandingan selesai 🎉</p>
+        {% else %}
+        <form method="post" action="/ronde3">
+                <button type="submit" style="--clr:#ff0000;">
+                    <span>Acak Skor<br>Lanjut Ronde 3</span>
+                    <i></i>
+                </button>
+            </form>
+        {% endif %}
+    {% elif ronde_saat_ini == 4 %}
+        {% if bracket_ukuran == 4 %}
+            <p style="color: yellow; font-weight: bold;">Pertandingan selesai 🎉</p>
+        {% else %}
+        <form method="post" action="/ronde4">
+                <button type="submit" style="--clr:#ff0000;">
+                    <span>Acak Skor<br>Lanjut Ronde 4</span>
+                    <i></i>
+                </button>
+            </form>
+        {% endif %}
+    {% elif ronde_saat_ini == 5 %}
+        {% if bracket_ukuran == 8 %}
+            <p style="color: yellow; font-weight: bold;">Pertandingan selesai 🎉</p>
+        {% else %}
+        <form method="post" action="/ronde5">
+                <button type="submit" style="--clr:#ff0000;">
+                    <span>Acak Skor<br>Lanjut Ronde 5</span>
+                    <i></i>
+                </button>
+            </form>
+        {% endif %}
+    {% elif ronde_saat_ini == 6 %}
+        <p style="color: yellow; font-weight: bold;">Pertandingan selesai 🎉</p>
+    {% endif %}
+</div>
+
+        <form method="post" action="/generate" class="generate-form" onsubmit="return confirm('Yakin ingin random ulang dan menghapus bracket sebelumnya?');">
+            <button type="submit" style="--clr:#ff0000;">
+                <span>Acak Ulang Bracket</span>
+                <i></i>
+            </button>
+        </form>
+    </nav>
+
+<!-- ======================================================== -->
+
+  <article id="container">
+<section class="round1">
+    {% for peserta in bracket_awal %}
+        {% for i in range(2) %}
+        {% if peserta[0]["Keterangan"] == "BYE" or peserta[1]["Keterangan"] == "BYE" %}
+            <div class="player" id="bye"></div>
+        {% else %}
+            <div class="player" {% if peserta[i]["Keterangan"] == "Seeded" %} id="seeded" {% endif %} {% if i == 1 %} id="normal2" {% else %} id="normal1" {% endif %}>
+            {{ peserta[i]["Nama"] }}
+                {% if skor_dict[peserta[i]["Nama"]] %}
+                    <span class="score">
+                    {{ skor_dict[peserta[i]["Nama"]]["skor1"] }}
+                    </span>
+                {% else %}
+                    <span class="score">0</span>
+                {% endif %}
+            </div>
+        {% endif %}
+        {% endfor %}
+    {% endfor %}
+</section>
+
+<div class="connecter" id="conn1">
+    {% for i in range(bracket_ukuran // 2) %}
+        {% if bracket_awal[i][0]["Keterangan"] == "BYE" or bracket_awal[i][1]["Keterangan"] == "BYE" %}
+            <div class="bye"></div>
+        {% else %}
+            <div></div>
+        {% endif %}
+    {% endfor %}
+</div>
+
+<div class="line">
+    {% for i in range(bracket_ukuran // 2) %}
+        {% if bracket_awal[i][0]["Keterangan"] == "BYE" or bracket_awal[i][1]["Keterangan"] == "BYE" %}
+            <div class="bye"></div>
+        {% else %}
+            <div></div>
+        {% endif %}
+    {% endfor %}
+</div>
+
+<section id="round2">
+{% if bracket_ukuran == 2 %}
+    {% if r2|length != 1 %}
+        <div class="player champion" id="r5">
+            <span class="winner">WINNER</span>
+        </div>
+    {% else %}
+        {% for peserta in r2 %}
+            <div class="player winner-box" id="r5">
+                <span class="nama">{{ peserta["Nama"] }}</span>
+                <span class="winner">WINNER</span>
+            </div>
+        {% endfor %}
+    {% endif %}
+{% else %}
+    {% if r2|length != bracket_ukuran // 4 %}
+        {% for i in range(bracket_ukuran // 2) %}
+            <div class="player"
+            {% if i % 2 == 1 %}
+                {% if bracket_awal[i][0]["Keterangan"] == "Seeded" %}
+                    {% if bracket_awal[i][0] in bye %}
+                    id="seeded2"
+                    {% else %}
+                    id="normal2"
+                    {% endif %}
+                {% elif bracket_awal[i][1]["Keterangan"] == "Seeded" %}
+                    {% if bracket_awal[i][1] in bye %}
+                    id="seeded2"
+                    {% else %}
+                    id="normal2"
+                    {% endif %}
+                {% else %}
+                    id="normal2"
+                {% endif %}
+            {% else %}
+                {% if bracket_awal[i][0]["Keterangan"] == "Seeded" %}
+                    {% if bracket_awal[i][0] in bye %}
+                    id="seeded1"
+                    {% else %}
+                    id="normal1"
+                    {% endif %}
+                {% elif bracket_awal[i][1]["Keterangan"] == "Seeded" %}
+                    {% if bracket_awal[i][1] in bye %}
+                    id="seeded1"
+                    {% else %}
+                    id="normal1"
+                    {% endif %}
+                {% else %}
+                    id="normal1"
+                {% endif %}
+            {% endif %}
+            >
+            {% for j in range(2) %}
+                {% if bracket_awal[i][j]["r1"] == "1" %}
+                    {{ bracket_awal[i][j]["Nama"] }}
+                {% endif %}
+            {% endfor %}
+                <span class="score">0</span>
+            </div>
+        {% endfor %}
+    {% else %}
+        {% for peserta in r2 %}
+            {% for i in range(2) %}
+            <div class="player" {% if i == 1 %} {% if peserta[i]["Keterangan"] == "Seeded" %} id="seeded2" {% else %} id="normal2" {% endif %} {% else %} {% if peserta[i]["Keterangan"] == "Seeded" %} id="seeded1" {% else %} id="normal1"  {% endif %} {% endif %}>
+                {{ peserta[i]["Nama"] }}
+                {% if skor_dict[peserta[i]["Nama"]] %}
+                    <span class="score">
+                    {{ skor_dict[peserta[i]["Nama"]]["skor2"] }}
+                    </span>
+                {% else %}
+                    <span class="score">0</span>
+                {% endif %}
+            </div>
+            {% endfor %}
+        {% endfor %}
+    {% endif %}
+{% endif %}
+</section>
+
+<div class="connecter" id="conn2">
+    {% for i in range(bracket_ukuran // 4) %}
+    <div></div>
+    {% endfor %}
+</div>
+
+<div class="line" id="line2">
+    {% for i in range(bracket_ukuran // 4) %}
+    <div></div>
+    {% endfor %}
+</div>
+
+<section id="round3">
+{% if bracket_ukuran == 4 %}
+    {% if r3|length != 1 %}
+        <div class="player champion" id="r5">
+            <span class="winner">WINNER</span>
+        </div>
+    {% else %}
+        {% for peserta in r3 %}
+            <div class="player winner-box" id="r5">
+                <span class="nama">{{ peserta["Nama"] }}</span>
+                <span class="winner">WINNER</span>
+            </div>
+        {% endfor %}
+    {% endif %}
+{% else %}
+    {% if r3|length != bracket_ukuran // 8 %}
+        {% for i in range(bracket_ukuran // 4) %}
+            {% if r2|length == bracket_ukuran // 4 %}
+            <div class="player"
+            {% if i % 2 == 1 %}
+                {% if r2[i][0]["Keterangan"] == "Seeded" %}
+                    {% if r2[i][0] in win_r2 %}
+                    id="seeded2"
+                    {% else %}
+                    id="normal2"
+                    {% endif %}
+                {% elif r2[i][1]["Keterangan"] == "Seeded" %}
+                    {% if r2[i][1] in win_r2 %}
+                    id="seeded2"
+                    {% else %}
+                    id="normal2"
+                    {% endif %}
+                {% else %}
+                    id="normal2"
+                {% endif %}
+            {% else %}
+                {% if r2[i][0]["Keterangan"] == "Seeded" %}
+                    {% if r2[i][0] in win_r2 %}
+                    id="seeded1"
+                    {% else %}
+                    id="normal1"
+                    {% endif %}
+                {% elif r2[i][1]["Keterangan"] == "Seeded" %}
+                    {% if r2[i][1] in win_r2 %}
+                    id="seeded1"
+                    {% else %}
+                    id="normal1"
+                    {% endif %}
+                {% else %}
+                    id="normal1"
+                {% endif %}
+            {% endif %}
+            >
+            {% for j in range(2) %}
+                {% if r2[i][j]["r2"] == "1" %}
+                    {{ r2[i][j]["Nama"] }}
+                {% endif %}
+            {% endfor %}
+                <span class="score">0</span>
+            </div>
+            {% else %}
+                <div class="player" {% if i == 1 %} id="normal2" {% else %} id="normal1" {% endif %}>
+                    <span class="score">0</span>
+                </div>
+            {% endif %}
+        {% endfor %}
+    {% else %}
+        {% for peserta in r3 %}
+            {% for i in range(2) %}
+            <div class="player"
+            {% if i == 1 %}
+            {% if peserta[i]["Keterangan"] == "Seeded" %} id="seeded2" {% else %} id="normal2" {% endif %}
+            {% else %}
+            {% if peserta[i]["Keterangan"] == "Seeded" %} id="seeded1" {% else %} id="normal1" {% endif %}   
+            {% endif %}>
+            {{ peserta[i]["Nama"] }}
+            {% if skor_dict[peserta[i]["Nama"]] %}
+                    <span class="score">
+                    {{ skor_dict[peserta[i]["Nama"]]["skor3"] }}
+                    </span>
+            {% else %}
+        <span class="score">0</span>
+    {% endif %}
+            </div>
+            {% endfor %}
+        {% endfor %}
+    {% endif %}
+{% endif %}
+</section>
+
+<div class="connecter" id="conn3">
+    {% for i in range(bracket_ukuran // 8) %}
+    <div></div>
+    {% endfor %}
+</div>
+
+<div class="line" id="line3">
+    {% for i in range(bracket_ukuran // 8) %}
+    <div></div>
+    {% endfor %}
+</div>
+
+<section id="round4">
+{% if bracket_ukuran == 8 %}
+    {% if r4|length != 1 %}
+        <div class="player champion" id="r5">
+            <span class="winner">WINNER</span>
+        </div>
+    {% else %}
+        {% for peserta in r4 %}
+            <div class="player winner-box">
+                <span class="nama">{{ peserta["Nama"] }}</span>
+                <span class="winner">WINNER</span>
+            </div>
+        {% endfor %}
+    {% endif %}
+{% else %}
+    {% if r4|length != bracket_ukuran // 16 %}
+        {% for i in range(bracket_ukuran // 8) %}
+            {% if r3|length == bracket_ukuran // 8 %}
+            <div class="player"
+            {% if i % 2 == 1 %}
+                {% if r3[i][0]["Keterangan"] == "Seeded" %}
+                    {% if r3[i][0] in win_r3 %}
+                    id="seeded2"
+                    {% else %}
+                    id="normal2"
+                    {% endif %}
+                {% elif r3[i][1]["Keterangan"] == "Seeded" %}
+                    {% if r3[i][1] in win_r3 %}
+                    id="seeded2"
+                    {% else %}
+                    id="normal2"
+                    {% endif %}
+                {% else %}
+                    id="normal2"
+                {% endif %}
+            {% else %}
+                {% if r3[i][0]["Keterangan"] == "Seeded" %}
+                    {% if r3[i][0] in win_r3 %}
+                    id="seeded1"
+                    {% else %}
+                    id="normal1"
+                    {% endif %}
+                {% elif r3[i][1]["Keterangan"] == "Seeded" %}
+                    {% if r3[i][1] in win_r3 %}
+                    id="seeded1"
+                    {% else %}
+                    id="normal1"
+                    {% endif %}
+                {% else %}
+                    id="normal1"
+                {% endif %}
+            {% endif %}
+            >
+            {% for j in range(2) %}
+                {% if r3[i][j]["r3"] == "1" %}
+                    {{ r3[i][j]["Nama"] }}
+                {% endif %}
+            {% endfor %}
+                <span class="score">0</span>
+            </div>
+            {% else %}
+                <div class="player" {% if i == 1 %} id="normal2" {% else %} id="normal1" {% endif %}>
+                    <span class="score">0</span>
+                </div>
+            {% endif %}
+        {% endfor %}
+    {% else %}
+        {% for peserta in r4 %}
+            {% for i in range(2) %}
+                <div class="player"
+                {% if i == 1 %} {% if peserta[i]["Keterangan"] == "Seeded" %} id="seeded2" {% else %} id="normal2" {% endif %}
+                {% else %}
+                {% if peserta[i]["Keterangan"] == "Seeded" %} id="seeded1" {% else %} id="normal1"  {% endif %}
+                {% endif %}>
+                {{ peserta[i]["Nama"] }}
+                {% if skor_dict[peserta[i]["Nama"]] %}
+                    <span class="score">
+                    {{ skor_dict[peserta[i]["Nama"]]["skor4"] }}
+                    </span>
+                {% else %}
+                    <span class="score">0</span>
+                {% endif %}
+            </div>
+            {% endfor %}
+        {% endfor %}
+    {% endif %}
+{% endif %}
+</section>
+
+<div class="connecter" id="conn4">
+    {% for i in range(bracket_ukuran // 16) %}
+    <div></div>
+    {% endfor %}
+</div>
+
+<div class="line" id="line4">
+    {% for i in range(bracket_ukuran // 16) %}
+    <div></div>
+    {% endfor %}
+</div>
+
+{% if bracket_ukuran == 16 %}
+<section id="round5">
+    {% if r5|length != 1 %}
+        <div class="player champion" id="r5">
+            <span class="winner">WINNER</span>
+        </div>
+    {% else %}
+        {% for peserta in r5 %}
+            <div class="player winner-box" id="r5">
+                <span class="nama">{{ peserta["Nama"] }}</span>
+                <span class="winner">WINNER</span>
+            </div>
+        {% endfor %}
+    {% endif %}
+</section>
+{% endif %}
+
+</article>
+  <script>
+    
+  </script>
+</body>
+</html>
